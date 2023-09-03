@@ -31,13 +31,38 @@ const UserSchema= new Schema({// I created Object for Main Schema
         year:{
             type:Number
         }
-    }]
-    
+    }],
+    date : {
+        type:Date,
+        default:Date.now
+    }
 })
-
 const User= mongoose.model("Changer",UserSchema)
 
+const newUser = {
+    firstname:"Ubaid",
+    lastname:"Ok",
+    age:13,
+    Graduated:true,
+    cars:[],
+}
+const myCar= {
+    model:'Tesla',
+    make:"Toyota",
+    year:2028,
+}
 
+newUser.cars.push(myCar);
+
+const user = new User(newUser);
+
+user.save()
+  .then(savedUser => {
+    console.log('User was created successfully:', savedUser);
+  })
+  .catch(err => {
+    throw err;
+  });
 app.get('/',(req,res)=>{
     res.send("Home Page")
 })
